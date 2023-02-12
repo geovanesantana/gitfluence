@@ -35,3 +35,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDEs
+.vscode
+**/.idea
+**/coverage
+*.sublime-project
+*.sublime-workspace

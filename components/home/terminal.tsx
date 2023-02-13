@@ -6,9 +6,9 @@ export default function Terminal() {
   const [responses, setResponses] = useState<{ [key: string]: string }>({});
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    setInputFocus();
-  }, []);
+  // useEffect(() => {
+  //   setInputFocus();
+  // }, []);
 
   console.log("responses", Object.keys(responses));
 

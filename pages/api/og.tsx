@@ -41,8 +41,7 @@ export default async function handler(req: NextRequest) {
             position: "absolute",
             top: 0,
             left: 0,
-            backgroundImage:
-              "url(https://uploads-ssl.webflow.com/63281d362a9501fa6e9f6aae/632835c8722a32c6adef674b_bg-tile.svg)",
+            backgroundImage: "url(https://www.gitfluence.com/bg-pattern.svg)",
             height: "100%",
             width: "100%",
             zIndex: -2,

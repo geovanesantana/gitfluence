@@ -8,9 +8,9 @@ export default function Keyboard({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="1.25"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.25"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
       <path d="M6 8h.001"></path>

@@ -5,6 +5,7 @@ import { Provider as RWBProvider } from "react-wrap-balancer";
 import cx from "classnames";
 import localFont from "@next/font/local";
 import { Inter } from "@next/font/google";
+import GoogleAnalytics from "@/components/shared/googleAnalytics";
 
 const sfPro = localFont({
   src: "../styles/SF-Pro-Display-Medium.otf",
@@ -25,6 +26,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         </div>
       </RWBProvider>
       <Analytics />
+      <GoogleAnalytics />
     </>
   );
 }

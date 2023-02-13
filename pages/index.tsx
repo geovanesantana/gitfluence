@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <Layout>
       <motion.div
-        className=" max-w-3xl px-5 xl:px-0"
+        className="max-w-3xl px-5 xl:px-0"
         initial="hidden"
         whileInView="show"
         animate="show"
@@ -18,7 +18,7 @@ export default function Home() {
           hidden: {},
           show: {
             transition: {
-              staggerChildren: 0.15,
+              staggerChildren: 0.1,
             },
           },
         }}

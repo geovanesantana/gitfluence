@@ -77,7 +77,7 @@ export default function Terminal() {
             <div className="ml-2 h-3 w-3 rounded-full bg-green-500"></div>
           </div>
 
-          <span className="text-sm text-gray">GitFluence</span>
+          {/* <span className="text-sm text-gray">GitFluence</span> */}
         </div>
 
         <div className="flex h-96 flex-col space-y-2 overflow-y-auto bg-zinc p-3 pb-16 font-mono text-base text-light">

@@ -35,7 +35,7 @@ export default function Home() {
       </div>
 
       <div
-        className="w-full max-w-screen-xl -scroll-mt-16 pb-8 pt-36 xl:w-8/12"
+        className="w-full max-w-screen-xl -scroll-mt-16 pb-8 pt-32 xl:w-8/12"
         id="terminal"
       >
         <Terminal />

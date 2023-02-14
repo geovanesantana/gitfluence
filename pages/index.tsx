@@ -35,13 +35,13 @@ export default function Home() {
       </div>
 
       <div
-        className="w-full max-w-screen-xl -scroll-mt-16 pb-8 pt-32 xl:w-8/12"
+        className="w-full max-w-screen-xl -scroll-mt-16 pb-8 pt-36 xl:w-8/12"
         id="terminal"
       >
         <Terminal />
       </div>
 
-      <div className="relative my-10 grid w-full max-w-screen-xl animate-[slide-down-fade_0.5s_ease-in-out] grid-cols-1 gap-5 px-5 md:grid-cols-3 xl:w-8/12 xl:px-0">
+      <div className="relative my-10 grid w-full max-w-screen-xl animate-[slide-down-fade_0.5s_ease-in-out] grid-cols-1 gap-12 px-5 md:grid-cols-3 xl:w-8/12 xl:gap-5 xl:px-0">
         {steps.map(({ icon, title, description }, index) => (
           <div
             key={title}

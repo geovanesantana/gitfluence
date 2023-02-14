@@ -30,6 +30,7 @@
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-intersection-observer": "^9.4.2",
     "react-markdown": "^8.0.4",
     "react-wrap-balancer": "^0.3.0",
     "typescript": "4.9.4",

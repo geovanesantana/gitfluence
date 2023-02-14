@@ -1,10 +1,13 @@
+import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 export default function Terminal() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [responses, setResponses] = useState<{ [key: string]: string }>({});
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const { ref, inView } = useInView({ threshold: 0.4, triggerOnce: true });
 
   useEffect(() => {
     setInputFocus();
@@ -68,16 +71,19 @@ export default function Terminal() {
   };
 
   return (
-    <div className="relative mx-5 xl:mx-0">
-      <div className="relative z-10 m-auto w-full max-w-[993px] overflow-hidden rounded-lg border border-light/5 font-mono leading-normal subpixel-antialiased shadow-3xl xl:px-0">
+    <div ref={ref} className="relative z-10 mx-5 [perspective:2000px] xl:mx-0">
+      <div
+        className={classNames(
+          "relative z-10 m-auto w-full max-w-[993px] overflow-hidden rounded-lg border border-light/5 font-mono leading-normal subpixel-antialiased shadow-3xl xl:px-0",
+          inView ? "animate-image-rotate" : "[transform:rotateX(25deg)]",
+        )}
+      >
         <div className="relative flex h-6 w-full items-center justify-center space-x-2 border-b border-slate bg-slate p-4">
           <div className="group absolute left-3 flex flex-1 space-x-2 justify-self-start">
             <div className="h-3 w-3 rounded-full bg-red-500"></div>
             <div className="ml-2 h-3 w-3 rounded-full bg-orange-300"></div>
             <div className="ml-2 h-3 w-3 rounded-full bg-green-500"></div>
           </div>
-
-          {/* <span className="text-sm text-gray">GitFluence</span> */}
         </div>
 
         <div className="flex h-96 flex-col space-y-2 overflow-y-auto bg-zinc p-3 pb-16 font-mono text-base text-light">
@@ -86,7 +92,7 @@ export default function Terminal() {
               <div className="space-y-2" key={index}>
                 <div>
                   <span className="text-gray">{"> "}</span>
-                  {key?.slice(0, index + 1 <= 9 ? -1 : -2)}
+                  {key.toString().replace(/[0-9]/g, "")}
                 </div>
 
                 {loading && Object.keys(responses).length - 1 === index ? (
@@ -131,7 +137,7 @@ export default function Terminal() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 top-0 h-full w-full bg-terminal-pattern opacity-20 blur-3xl xl:opacity-30" />
+      <div className="absolute bottom-0 left-0 right-0 top-0 h-full w-full bg-terminal-pattern opacity-20 blur-3xl" />
     </div>
   );
 }

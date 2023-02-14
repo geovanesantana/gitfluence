@@ -36,6 +36,10 @@ module.exports = {
         "slide-down-fade": "slide-down-fade 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
       },
       keyframes: {
+        "fade-in": {
+          from: { opacity: 0, transform: "translateY(-10px)" },
+          to: { opacity: 1, transform: "none" },
+        },
         "slide-up-fade": {
           "0%": { opacity: 0, transform: "translateY(6px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
@@ -52,6 +56,12 @@ module.exports = {
             transform: "translateX(-4em)",
           },
         },
+        "image-rotate": {
+          "0%": { transform: "rotateX(25deg)" },
+          "25%": { transform: "rotateX(25deg) scale(0.9)" },
+          "60%": { transform: "none" },
+          "100%": { transform: "none" },
+        },
       },
       backgroundImage: {
         "hero-pattern": "url('/bg-pattern.svg')",
@@ -66,7 +76,9 @@ module.exports = {
         "3xl": "0 0 60px 3px rgb(0 0 0 / 40%)",
       },
       animation: {
+        "fade-in": "fade-in 1000ms var(--animation-delay, 0ms) ease forwards",
         tiles: "tiles 600ms steps(4) infinite",
+        "image-rotate": "image-rotate 1400ms ease forwards",
       },
     },
   },

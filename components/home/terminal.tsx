@@ -129,6 +129,11 @@ export default function Terminal() {
                   ref={inputRef}
                   className="w-full bg-transparent pl-2.5 focus:outline-none focus:ring-0 focus:ring-offset-0"
                   value={input}
+                  placeholder={
+                    Object.keys(responses).length < 1
+                      ? "Type what you need"
+                      : undefined
+                  }
                   onChange={(e) => setInput(e.target.value)}
                 />
               </form>

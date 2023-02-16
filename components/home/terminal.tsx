@@ -1,13 +1,11 @@
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "react-intersection-observer";
 
 export default function Terminal() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [responses, setResponses] = useState<{ [key: string]: string }>({});
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const { ref, inView } = useInView({ threshold: 0.4, triggerOnce: true });
 
   useEffect(() => {
     setInputFocus();
@@ -71,11 +69,10 @@ export default function Terminal() {
   };
 
   return (
-    <div ref={ref} className="relative z-10 mx-5 [perspective:2000px] xl:mx-0">
+    <div className="relative z-10 mx-5 translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:200ms] xl:mx-0">
       <div
         className={classNames(
           "relative z-10 m-auto w-full max-w-[993px] overflow-hidden rounded-lg border border-light/5 font-mono leading-normal subpixel-antialiased shadow-3xl xl:px-0",
-          inView ? "animate-image-rotate" : "[transform:rotateX(25deg)]",
         )}
       >
         <div className="relative flex h-6 w-full items-center justify-center space-x-2 border-b border-slate bg-slate p-4">

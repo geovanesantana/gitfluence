@@ -56,12 +56,6 @@ module.exports = {
             transform: "translateX(-4em)",
           },
         },
-        "image-rotate": {
-          "0%": { transform: "rotateX(25deg)" },
-          "25%": { transform: "rotateX(25deg) scale(0.9)" },
-          "60%": { transform: "none" },
-          "100%": { transform: "none" },
-        },
       },
       backgroundImage: {
         "hero-pattern": "url('/bg-pattern.svg')",
@@ -78,7 +72,6 @@ module.exports = {
       animation: {
         "fade-in": "fade-in 1000ms var(--animation-delay, 0ms) ease forwards",
         tiles: "tiles 600ms steps(4) infinite",
-        "image-rotate": "image-rotate 1400ms ease forwards",
       },
     },
   },

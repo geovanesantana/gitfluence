@@ -13,7 +13,7 @@ export default function Home() {
             Fast & Easy Git Command Generator
           </p>
         </div>
-        <h1 className=" translate-y-[-1rem] animate-fade-in bg-gradient-to-br from-light to-stone-300 bg-clip-text text-center font-display text-4xl font-bold text-transparent opacity-0 drop-shadow-sm [--animation-delay:100ms] md:text-7xl md:leading-[5rem]">
+        <h1 className="translate-y-[-1rem] animate-fade-in bg-gradient-to-br from-light to-stone-300 bg-clip-text text-center font-display text-4xl font-bold text-transparent opacity-0 drop-shadow-sm [--animation-delay:100ms] md:text-7xl md:leading-[5rem]">
           <Balancer>Find the Git Command You Need Now!</Balancer>
         </h1>
         <p className="mt-6 translate-y-[-1rem] animate-fade-in text-center text-gray opacity-0 [--animation-delay:200ms] md:text-xl">
@@ -46,8 +46,10 @@ export default function Home() {
           <div
             key={title}
             className={classNames(
-              "mx-auto max-w-md translate-y-[-1rem] animate-fade-in bg-gradient-to-br text-center opacity-0 xl:text-left",
-              `[--animation-delay:${index + 1}00ms]`,
+              "mx-auto max-w-md  bg-gradient-to-br text-center  xl:text-left",
+              `translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:${
+                index + 1
+              }00ms]`,
             )}
           >
             <div className="flex items-center justify-center pb-3 xl:justify-start">

@@ -35,36 +35,34 @@ export default function Home() {
       </div>
 
       <div
-        className="w-full max-w-screen-xl -scroll-mt-16 pb-8 pt-36 xl:w-8/12"
+        className="relative w-full max-w-screen-xl -scroll-mt-10 pt-20 pb-8 xl:w-8/12 xl:-scroll-mt-16 xl:pt-36"
         id="terminal"
       >
         <Terminal />
+
+        <div className="absolute -bottom-44 -left-12 right-0 h-full w-full max-w-screen-xl rounded-[1000px] bg-feature-pattern opacity-10 blur-[160px] xl:h-[278px] xl:w-[748px] xl:opacity-30" />
       </div>
 
-      <div className="relative my-10 grid w-full max-w-screen-xl animate-[slide-down-fade_0.5s_ease-in-out] grid-cols-1 gap-12 px-5 md:grid-cols-3 xl:w-8/12 xl:gap-5 xl:px-0">
+      <div className="my-10 grid w-full max-w-screen-xl animate-[slide-down-fade_0.5s_ease-in-out] grid-cols-1 gap-12 px-5 md:grid-cols-3 xl:w-8/12 xl:gap-12 xl:px-0">
         {steps.map(({ icon, title, description }, index) => (
           <div
             key={title}
             className={classNames(
-              "mx-auto max-w-md  bg-gradient-to-br text-center  xl:text-left",
+              "mx-auto max-w-md bg-gradient-to-br text-center",
               `translate-y-[-1rem] animate-fade-in opacity-0 [--animation-delay:${
                 index + 1
               }00ms]`,
             )}
           >
-            <div className="flex items-center justify-center pb-3 xl:justify-start">
-              {icon}
-            </div>
+            <div className="flex items-center justify-center pb-3">{icon}</div>
             <h2 className="bg-gradient-to-br from-light to-stone-300 bg-clip-text pb-1 font-display text-xl font-bold text-transparent md:font-normal">
-              <Balancer>{title}</Balancer>
+              {title}
             </h2>
-            <div className="font-base prose-base leading-normal text-gray">
-              <Balancer>{description}</Balancer>
+            <div className="font-base prose-base max-w-xs leading-normal text-gray">
+              {description}
             </div>
           </div>
         ))}
-
-        <div className="absolute bottom-0 -left-12 right-0 -top-44 h-full w-full max-w-screen-xl rounded-[1000px] bg-feature-pattern opacity-10 blur-[160px] xl:h-[278px] xl:w-[748px] xl:opacity-30" />
       </div>
     </Layout>
   );

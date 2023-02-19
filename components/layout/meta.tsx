@@ -34,6 +34,12 @@ export default function Meta({
         name="google-site-verification"
         content="PO2VDL9wJjznINla6Aoc40WI5JIGJw-VVyyVMllNct4"
       />
+
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3716315942305190"
+        crossOrigin="anonymous"
+      ></script>
     </Head>
   );
 }

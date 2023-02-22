@@ -42,3 +42,6 @@ next-env.d.ts
 **/coverage
 *.sublime-project
 *.sublime-workspace
+
+# contentlayer
+.contentlayer

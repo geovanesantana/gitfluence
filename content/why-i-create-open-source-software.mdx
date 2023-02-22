@@ -1,0 +1,152 @@
+---
+title: 'Dynamic Routing and Static Generation'
+slug: 'Dynamic Routing and Static Generation'
+summary: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus.'
+coverImage: '/assets/blog/dynamic-routing/cover.jpg'
+publishedAt: '2020-03-16T05:35:07.322Z'
+author:
+  name: JJ Kasper
+  picture: '/assets/blog/authors/jj.jpeg'
+---
+
+React attempts to be as unopinionated as possible. This is both it's greatest strength _and_ weakness.
+
+Over the years, I've tried many different ways to style my React apps. Each solution has its pros and cons.
+This article will share my journey using CSS with React and how it's evolved to its current state. Then, I'll discuss pros/cons of
+different approaches for styling.
+
+## Vanilla CSS
+
+Like most, I started web development with vanilla CSS. All you need is a single HTML and CSS file. Pretty simple.
+
+```html title="index.html"
+<h1 class="header">Welcome</h1>
+```
+
+```css title="index.css"
+.header {
+  font-size: 32px;
+}
+```
+
+As I built more large applications, I began to understand some of the drawbacks.
+
+- **Reusability.** It's easy to create append-only stylesheets that become very complex.
+- **Global Namespace.** Since CSS has a [global namespace](https://css-tricks.com/regarding-css-global-scope/), you can unintentionally target too many elements.
+- **Colocation.** It's hard to modularize your CSS, which makes it difficult to delete code safely.
+
+At this point, I was introduced to [CSS pre-processors](https://developer.mozilla.org/en-US/docs/Glossary/CSS_preprocessor).
+These tools aim to introduce new funtionality and compile back to vanilla CSS.
+
+## Sass
+
+[Sass](https://sass-lang.com/), one of the most popular preprocessors, allows you to write more reusable, maintainable CSS.
+Some of the most popular features are [variables](https://sass-lang.com/documentation/variables), [mixins](https://sass-lang.com/documentation/at-rules/mixin), and [modules](https://sass-lang.com/documentation/modules).
+
+- **Variables.** I want to define global values once and share them throughout my stylesheets.
+- **Mixins.** I want to reuse particular snippets of CSS.
+- **Modules.** I want to split up my CSS files for a more maintainable codebase.
+
+```scss title="_base.scss"
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+```
+
+```scss title="_header.scss"
+@use 'base';
+
+.header {
+  font-size: 32px;
+}
+```
+
+Sass helped me write more modular, reusable CSS – at least, for a while. Over time, I ran into new issues.
+
+- **Naming.** As your CSS grows, it's easy to have class names get out of hand.
+- **Browser support.** Certain features aren't [supported across all browsers](https://caniuse.com/) and require [vendor prefixes](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix) like `-moz-` (Firefox), `-webkit-` (Safari), and `-ms-` (Internet Explorer and Edge).
+
+To solve naming, I started to adopt [BEM](http://getbem.com/introduction/).
+Block Element Modifier is a methodology that helps you to create reusable components
+and organize CSS in a modular way, which keeps specificity low.
+
+```html
+<button class="button">Cancel</button> <button class="button button--primary">Submit</button>
+```
+
+```css
+.button {
+  color: black;
+  background-color: gray;
+}
+
+.button--primary {
+  color: white;
+  background-color: green;
+}
+```
+
+Naming conventions helped but didn't fix the root cause: **naming is hard**.
+For browser support, it's possible to set up your Sass toolchain with a tool like [autoprefixer](https://css-tricks.com/autoprefixer/) to handle vendor prefixes.
+However, around this time, I started using component-based frameworks like React. This led me to explore CSS-in-JS.
+
+## CSS-in-JS
+
+I started using CSS-in-JS when building a component library. At first, CSS-in-JS solved all my problems.
+
+- **Specificity** is solved by auto-generated class names.
+- **Colocation** is solved by putting CSS directly with the component, making it easy to delete code.
+- **Browser support** is solved by having autoprefixer built-in.
+- **Variables** are solved by creating a global theme.
+
+However, **naming** was still a huge pain.
+
+As the component library grew, I began to explore [Theme UI](https://theme-ui.com) and [styled-system](https://styled-system.com/).
+These were more structured approaches to scaling CSS-in-JS to help enforce a design system.
+Plus, they helped solve naming. Trying to scale [styled-components](https://styled-components.com/) alone in a large application made me get _really_ creative with names.
+You can only have so many container, wrapper, layout things. For example:
+
+## Current State
+
+I've recently been working with [CSS Modules](https://github.com/css-modules/css-modules) and [Tailwind CSS](https://tailwindcss.com/).
+Both of these approaches to styling React applications have prompted me to step back and evaluate the ecosystem.
+
+Below, I've summarized pros and cons of various approaches to styling your React application. I tried to make this comparison as unopinionated as possible.
+The choice that's best for you likely depends on:
+
+- Your experience (stick with what you know).
+- Your team.
+- The size of your application.
+- What you're trying to build.
+
+## Pros and Cons
+
+### Vanilla CSS
+
+### CSS Modules
+
+[CSS Modules](https://github.com/css-modules/css-modules) would be my choice for smaller teams that don't need to share
+components across applications.
+
+[Next.js](https://nextjs.org) has support for CSS Modules, which means you don't have to worry about setting up [Webpack](https://webpack.js.org/).
+It also sets up [autoprefixer](https://css-tricks.com/autoprefixer/) making CSS Modules an attractive alternative to CSS-in-JS in some cases.
+
+### CSS-in-JS
+
+There's many different CSS-in-JS libraries. The two most popular are [styled-components](https://styled-components.com/) and [Emotion](https://emotion.sh/docs/introduction).
+
+There's also zero-runtime solutions like [Linaria](https://github.com/callstack/linaria), where CSS is extracted to CSS files at build-time.
+To see comparisons between different libraries, see [CSS-in-JS benchmarks.](https://github.com/A-gambit/CSS-IN-JS-Benchmarks)
+
+## Further Reading
+
+- [Switching to Tailwind CSS](/blog/tailwind)
+- [What are CSS Modules and why do we need them?](https://css-tricks.com/css-modules-part-1-need/)
+- [The Cost of JavaScript in 2019](https://v8.dev/blog/cost-of-javascript-2019)
+- [CSS-in-JS library comparisons](https://github.com/andreipfeiffer/css-in-js)
+- [Refactoring an alert component from CSS to CSS-in-JS](https://alert-refactor.netlify.app/)
+- [Two Steps Forward, One Step Back](https://jxnblk.com/blog/two-steps-forward/)

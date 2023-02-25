@@ -1,10 +1,20 @@
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
 
+interface Response {
+  type: string;
+  content: string;
+}
+
+const responseType = {
+  answer: "answer",
+  question: "question",
+};
+
 export default function Terminal() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [responses, setResponses] = useState<{ [key: string]: string }>({});
+  const [responses, setResponses] = useState<Response[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -19,9 +29,15 @@ export default function Terminal() {
 
   const generateCommand = async () => {
     setLoading(true);
-    const temp = Object.assign({}, responses);
-    temp[input + (Object.keys(responses).length + 1)] = "";
-    setResponses(temp);
+    setResponses((prev) => {
+      return [
+        ...prev,
+        {
+          type: responseType.question,
+          content: input,
+        },
+      ];
+    });
     setInput("");
 
     const response = await fetch("/api/generate", {
@@ -34,10 +50,6 @@ export default function Terminal() {
       }),
     });
 
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-
     // This data is a ReadableStream
     const data = response.body;
     if (!data) {
@@ -47,20 +59,24 @@ export default function Terminal() {
     const reader = data.getReader();
     const decoder = new TextDecoder();
     let done = false;
+    let resultData = "";
 
     while (!done) {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-
-      setResponses((prev) => {
-        const clone = Object.assign({}, prev);
-        clone[input + (Object.keys(responses).length + 1)] =
-          (clone[input + (Object.keys(responses).length + 1)] ?? "") +
-          chunkValue;
-        return clone;
-      });
+      resultData += chunkValue;
     }
+
+    setResponses((prev) => {
+      return [
+        ...prev,
+        {
+          type: responseType.answer,
+          content: resultData,
+        },
+      ];
+    });
 
     setLoading(false);
     setTimeout(() => {
@@ -84,15 +100,17 @@ export default function Terminal() {
         </div>
 
         <div className="flex h-96 flex-col space-y-2 overflow-y-auto bg-zinc p-3 pb-16 font-mono text-base text-light">
-          {Object.keys(responses).map((key, index) => {
+          {responses.map((item, index) => {
             return (
               <div className="space-y-2" key={index}>
-                <div>
-                  <span className="text-gray">{"> "}</span>
-                  {key.toString().replace(/[0-9]/g, "")}
-                </div>
+                {item.type === responseType.question && (
+                  <div>
+                    <span className="text-gray">{"> "}</span>
+                    {item.content}
+                  </div>
+                )}
 
-                {loading && Object.keys(responses).length - 1 === index ? (
+                {loading && index === responses.length - 1 ? (
                   <span className="inline-block w-2 overflow-hidden align-middle font-mono">
                     <span className="flex w-16 animate-tiles flex-nowrap font-mono text-gray">
                       <span className="w-4">\</span>
@@ -101,12 +119,12 @@ export default function Terminal() {
                       <span className="w-4">-</span>
                     </span>
                   </span>
-                ) : (
+                ) : item.type === responseType.answer ? (
                   <div>
                     <span className="text-gray">{"> "}</span>
-                    {responses[key]}
+                    {item.content}
                   </div>
-                )}
+                ) : null}
               </div>
             );
           })}
@@ -127,9 +145,7 @@ export default function Terminal() {
                   className="w-full bg-transparent pl-2.5 focus:outline-none focus:ring-0 focus:ring-offset-0"
                   value={input}
                   placeholder={
-                    Object.keys(responses).length < 1
-                      ? "Type what you need"
-                      : undefined
+                    responses.length < 1 ? "Type what you need" : undefined
                   }
                   onChange={(e) => setInput(e.target.value)}
                 />

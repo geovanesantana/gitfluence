@@ -10,13 +10,21 @@ const handler = async (req: Request): Promise<Response> => {
   };
 
   if (!prompt) {
-    return new Response("No prompt in the request", { status: 400 });
+    return new Response(
+      "💬 Type a description to get the git command you need.",
+    );
+  }
+
+  if (prompt.length >= 100) {
+    return new Response(
+      "🚨 The description is too large for the OpenAI API. Try reducing the number of characters.",
+    );
   }
 
   const payload: OpenAIStreamPayload = {
     model: "text-davinci-003",
-    prompt: `Give me the git command that would do the following: ${prompt}`,
-    temperature: 0.7,
+    prompt: `I want you to act as a Senior Frontend developer. Give me the git command that would do the following: ${prompt}`,
+    temperature: 0.5,
     max_tokens: 80,
     top_p: 1,
     frequency_penalty: 0,

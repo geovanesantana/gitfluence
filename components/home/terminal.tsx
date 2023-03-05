@@ -1,5 +1,7 @@
+import { Copy } from "@/components/shared/icons";
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-hot-toast";
 
 interface Response {
   type: string;
@@ -10,6 +12,12 @@ const responseType = {
   answer: "answer",
   question: "question",
 };
+
+function removeMarkdown(text: string) {
+  text = text.replace(/`(.+?)`/g, "");
+
+  return text;
+}
 
 export default function Terminal() {
   const [input, setInput] = useState("");
@@ -73,7 +81,7 @@ export default function Terminal() {
         ...prev,
         {
           type: responseType.answer,
-          content: resultData,
+          content: removeMarkdown(resultData),
         },
       ];
     });
@@ -102,7 +110,7 @@ export default function Terminal() {
         <div className="flex h-96 flex-col space-y-2 overflow-y-auto bg-zinc p-3 pb-16 font-mono text-base text-light">
           {responses.map((item, index) => {
             return (
-              <div className="space-y-2" key={index}>
+              <div key={index}>
                 {item.type === responseType.question && (
                   <div>
                     <span className="text-gray">{"> "}</span>
@@ -120,9 +128,55 @@ export default function Terminal() {
                     </span>
                   </span>
                 ) : item.type === responseType.answer ? (
-                  <div>
+                  <div className="inline-block">
                     <span className="text-gray">{"> "}</span>
                     {item.content}
+
+                    {item.content.length > 0 &&
+                      !item.content.includes("💬") &&
+                      !item.content.includes("🚨") && (
+                        <button
+                          className="ml-2 rounded-md bg-slate px-2 py-2 transition-all duration-75 ease-in hover:bg-black-400 focus:outline-none focus:ring-2 focus:ring-gray"
+                          onClick={() => {
+                            navigator.clipboard.writeText(item.content);
+                            toast("Git command copied to clipboard.", {
+                              icon: (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="h-4 w-4 stroke-2 text-[#4db682]"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                  <path d="m9 12 2 2 4-4"></path>
+                                </svg>
+                              ),
+                              style: {
+                                height: 38,
+                                borderRadius: 4,
+                                border: "1px solid #515151",
+                                padding: "16px 12px",
+                                color: "#fffef1",
+                                background: "#343333",
+                                fontSize: 12,
+                                letterSpacing: "0.3px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyItems: "center",
+                                margin: 0,
+                              },
+                            });
+                          }}
+                        >
+                          <Copy className="h-4 w-4 stroke-2 text-light" />
+                        </button>
+                      )}
                   </div>
                 ) : null}
               </div>

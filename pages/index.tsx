@@ -2,6 +2,7 @@ import Terminal from "@/components/home/terminal";
 import Layout from "@/components/layout";
 import { Copy, Keyboard, Prompt } from "@/components/shared/icons";
 import classNames from "classnames";
+import { Toaster } from "react-hot-toast";
 import Balancer from "react-wrap-balancer";
 
 export default function Home() {
@@ -38,6 +39,12 @@ export default function Home() {
         className="relative w-full max-w-screen-xl -scroll-mt-10 pt-20 pb-8 xl:w-8/12 xl:-scroll-mt-16 xl:pt-36"
         id="terminal"
       >
+        <Toaster
+          position="bottom-right"
+          reverseOrder={false}
+          toastOptions={{ duration: 2000 }}
+        />
+
         <Terminal />
 
         <div className="absolute -bottom-44 -left-12 right-0 h-full w-full max-w-screen-xl rounded-[1000px] bg-feature-pattern opacity-10 blur-[160px] xl:h-[278px] xl:w-[748px] xl:opacity-30" />

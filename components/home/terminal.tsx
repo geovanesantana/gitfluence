@@ -89,6 +89,10 @@ export default function Terminal() {
     setLoading(false);
     setTimeout(() => {
       setInputFocus();
+
+      if (typeof (window as any)._carbonads !== "undefined") {
+        (window as any)._carbonads.refresh();
+      }
     }, 250);
   };
 
@@ -199,7 +203,7 @@ export default function Terminal() {
                   className="w-full bg-transparent pl-2.5 focus:outline-none focus:ring-0 focus:ring-offset-0"
                   value={input}
                   placeholder={
-                    responses.length < 1 ? "Type what you need" : undefined
+                    responses.length < 1 ? "Type what you need..." : undefined
                   }
                   onChange={(e) => setInput(e.target.value)}
                 />

@@ -99,7 +99,7 @@ export default function CarbonAds() {
     <>
       <style dangerouslySetInnerHTML={{ __html: carbonStyle }} />
       <div
-        className="mt-2 mb-10 flex w-full max-w-screen-xl animate-[slide-down-fade_0.5s_ease-in-out] justify-center px-5 xl:px-0"
+        className="mt-2 mb-10 flex h-100 w-full max-w-screen-xl animate-[slide-down-fade_0.5s_ease-in-out] justify-center px-5 xl:px-0"
         ref={containerRef}
       />
     </>

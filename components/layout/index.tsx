@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ReactNode, useEffect } from "react";
 import Meta from "./meta";
 
@@ -14,19 +14,19 @@ export default function Layout({
   };
   children: ReactNode;
 }) {
-  // const [terminalRef, setTerminalRef] = useState<null | HTMLElement>(null);
+  const [terminalRef, setTerminalRef] = useState<null | HTMLElement>(null);
 
-  // useEffect(() => {
-  //   return () => {
-  //     setTerminalRef(document.getElementById("terminal"));
-  //   };
-  // }, []);
+  useEffect(() => {
+    if (document) {
+      setTerminalRef(document.getElementById("terminal"));
+    }
+  }, []);
 
-  // const scrollToTerminal = () => {
-  //   if (terminalRef !== null) {
-  //     terminalRef.scrollIntoView({ behavior: "smooth" });
-  //   }
-  // };
+  const scrollToTerminal = () => {
+    if (terminalRef !== null) {
+      terminalRef.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -43,11 +43,11 @@ export default function Layout({
             </Link>
 
             <div>
-              <a href="#terminal">
+              <button onClick={scrollToTerminal}>
                 <p className="bg-gradient-to-r from-yellow to-amber bg-clip-text text-base text-transparent hover:from-yellow-400 hover:to-amber-400">
                   Get Started
                 </p>
-              </a>
+              </button>
             </div>
           </div>
         </header>

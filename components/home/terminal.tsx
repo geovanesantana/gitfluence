@@ -136,7 +136,7 @@ export default function Terminal() {
                       !item.content.includes("💬") &&
                       !item.content.includes("🚨") && (
                         <button
-                          className="ml-2 rounded-md bg-slate px-2 py-2 transition-all duration-75 ease-in hover:bg-black-400 focus:outline-none focus:ring-2 focus:ring-gray"
+                          className="ml-2 rounded-md bg-slate px-2 py-2 transition-all duration-75 ease-in hover:bg-black-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray"
                           onClick={() => {
                             navigator.clipboard.writeText(item.content);
                             toast("Git command copied to clipboard.", {

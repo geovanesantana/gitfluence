@@ -1,11 +1,21 @@
 import Terminal from "@/components/home/terminal";
 import Layout from "@/components/layout";
+import CarbonAds from "@/components/shared/carbonAds";
 import { Copy, Keyboard, Prompt } from "@/components/shared/icons";
 import classNames from "classnames";
+import { useRef } from "react";
 import { Toaster } from "react-hot-toast";
 import Balancer from "react-wrap-balancer";
 
 export default function Home() {
+  const terminalRef = useRef<null | HTMLDivElement>(null);
+
+  const scrollToTerminal = () => {
+    if (terminalRef.current !== null) {
+      terminalRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <Layout>
       <div className="max-w-3xl px-5 xl:px-0">
@@ -24,20 +34,21 @@ export default function Home() {
           </Balancer>
         </p>
         <div className="mx-auto mt-10 flex items-center justify-center space-x-5">
-          <a
+          <button
             className="relative flex max-w-fit translate-y-[-1rem] animate-fade-in items-center justify-center rounded-md border border-amber-700 bg-black-600 px-14 py-3 text-sm opacity-0 transition-colors [--animation-delay:300ms] hover:border-amber-600 hover:bg-black-700"
-            href="#terminal"
+            onClick={scrollToTerminal}
           >
             <p className="bg-gradient-to-r from-yellow to-amber bg-clip-text text-base text-transparent hover:from-yellow-400 hover:to-amber-400">
               Get Started
             </p>
-          </a>
+          </button>
         </div>
       </div>
 
       <div
         className="relative w-full max-w-screen-xl -scroll-mt-10 pt-20 pb-8 xl:w-8/12 xl:-scroll-mt-16 xl:pt-36"
         id="terminal"
+        ref={terminalRef}
       >
         <Toaster
           position="bottom-right"
@@ -49,6 +60,8 @@ export default function Home() {
 
         <div className="absolute -bottom-44 -left-12 right-0 h-full w-full max-w-screen-xl rounded-[1000px] bg-feature-pattern opacity-10 blur-[160px] xl:h-[278px] xl:w-[748px] xl:opacity-30" />
       </div>
+
+      <CarbonAds />
 
       <div className="my-10 grid w-full max-w-screen-xl animate-[slide-down-fade_0.5s_ease-in-out] grid-cols-1 gap-12 px-5 md:grid-cols-3 xl:w-8/12 xl:gap-12 xl:px-0">
         {steps.map(({ icon, title, description }, index) => (

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ReactNode } from "react";
+import React, { useState } from "react";
+import { ReactNode, useEffect } from "react";
 import Meta from "./meta";
 
 export default function Layout({
@@ -13,6 +14,20 @@ export default function Layout({
   };
   children: ReactNode;
 }) {
+  const [terminalRef, setTerminalRef] = useState<null | HTMLElement>(null);
+
+  useEffect(() => {
+    return () => {
+      setTerminalRef(document.getElementById("terminal"));
+    };
+  }, []);
+
+  const scrollToTerminal = () => {
+    if (terminalRef !== null) {
+      terminalRef.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <Meta {...meta} />
@@ -28,11 +43,11 @@ export default function Layout({
             </Link>
 
             <div>
-              <a href="https://gitfluence.com/#terminal">
+              <button onClick={scrollToTerminal}>
                 <p className="bg-gradient-to-r from-yellow to-amber bg-clip-text text-base text-transparent hover:from-yellow-400 hover:to-amber-400">
                   Get Started
                 </p>
-              </a>
+              </button>
             </div>
           </div>
         </header>
@@ -51,11 +66,11 @@ export default function Layout({
           </p>
 
           <ul className="order-1 flex flex-wrap items-center text-sm md:order-2">
-            <li>
+            {/* <li>
               <Link href="/privacy" className="mr-4 hover:underline md:mr-6">
                 Privacy Policy
               </Link>
-            </li>
+            </li> */}
             <li>
               <a
                 href="mailto:contact@gitfluence.com"

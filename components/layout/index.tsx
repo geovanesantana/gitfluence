@@ -14,19 +14,19 @@ export default function Layout({
   };
   children: ReactNode;
 }) {
-  const [terminalRef, setTerminalRef] = useState<null | HTMLElement>(null);
+  // const [terminalRef, setTerminalRef] = useState<null | HTMLElement>(null);
 
-  useEffect(() => {
-    return () => {
-      setTerminalRef(document.getElementById("terminal"));
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     setTerminalRef(document.getElementById("terminal"));
+  //   };
+  // }, []);
 
-  const scrollToTerminal = () => {
-    if (terminalRef !== null) {
-      terminalRef.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  // const scrollToTerminal = () => {
+  //   if (terminalRef !== null) {
+  //     terminalRef.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // };
 
   return (
     <>
@@ -43,11 +43,11 @@ export default function Layout({
             </Link>
 
             <div>
-              <button onClick={scrollToTerminal}>
+              <a href="#terminal">
                 <p className="bg-gradient-to-r from-yellow to-amber bg-clip-text text-base text-transparent hover:from-yellow-400 hover:to-amber-400">
                   Get Started
                 </p>
-              </button>
+              </a>
             </div>
           </div>
         </header>

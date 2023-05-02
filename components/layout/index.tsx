@@ -1,7 +1,8 @@
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { ReactNode, useEffect } from "react";
 import Meta from "./meta";
+import { Github } from "@/components/shared/icons";
 
 export default function Layout({
   meta,
@@ -73,10 +74,12 @@ export default function Layout({
             </li> */}
             <li>
               <a
-                href="mailto:contact@gitfluence.com"
-                className="hover:underline"
+                className="text-gray transition-all duration-75 hover:opacity-90"
+                href="https://github.com/geovanesantana/gitfluence"
+                target="_blank"
+                rel="noreferrer"
               >
-                Contact
+                <Github className="h-7 w-7" />
               </a>
             </li>
           </ul>

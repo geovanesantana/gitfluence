@@ -5,3 +5,4 @@ export { default as ExpandingArrow } from "./expanding-arrow";
 export { default as Keyboard } from "./keyboard-icon";
 export { default as Copy } from "./copy";
 export { default as Prompt } from "./prompt";
+export { default as Github } from "./github";
